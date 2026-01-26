@@ -1,0 +1,16 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Weather app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "cp-23fam",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.3",
+    "dotenv": "^17.2.3",
+    "ejs": "^4.0.1"
+  }
+}

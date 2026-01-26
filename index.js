@@ -1,0 +1,27 @@
+require('dotenv').config()
+const http = require("http")
+const axios = require("axios")
+
+const location = "Sonceboz"
+
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.API_KEY}&units=metric&lang=fr`
+
+const server = http.createServer(async (req, res) => {
+
+    const response = await axios.get(url)
+
+    const html = `
+    <h1>Météo actuelle à ${location}</h1>
+    <p>Température: ${response.data.main.temp}</p>
+    <p>Description: ${response.data.weather[0].description}</p>
+    `
+
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.end(html);
+});
+
+const PORT = process.env.PORT || 3000
+
+server.listen(PORT, 'localhost', () => {
+    console.log(`Server running at http://localhost:${PORT}/`);
+});
