@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ quiet: true })
 const http = require("http")
 const axios = require("axios")
 
@@ -22,6 +22,6 @@ const server = http.createServer(async (req, res) => {
 
 const PORT = process.env.PORT || 3000
 
-server.listen(PORT, 'localhost', () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}/`);
 });
