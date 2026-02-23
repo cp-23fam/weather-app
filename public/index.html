@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <input type="text" name="city" id="city">
+    <button onclick="getApiResponse();">Rechercher</button>
+
+    <h1 id="title">Météo actuelle à </h1>
+    <p id="temp">Température: </p>
+    <p id="desc">Description: </p>
+
+    <h2>Historique des 10 dernières prévisions</h2>
+    <ul id="history"></ul>
+</body>
+
+</html>

@@ -1,38 +1,56 @@
-require('dotenv').config({ quiet: true })
-const http = require("http")
-const axios = require("axios")
+require("dotenv").config({ quiet: true });
+const mongoose = require("mongoose");
+const express = require("express");
+var cors = require("cors");
+const bodyParser = require("body-parser");
 
+const Location = require("./schemas/location");
 
+const app = express();
 
-const server = http.createServer(async (req, res) => {
-    const location = getLocationFrom(req.url) ?? "Sonceboz"
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.API_KEY}&units=metric&lang=fr`
-
-    const response = await axios.get(url)
-
-    const html = `
-    <h1>Météo actuelle à ${location}</h1>
-    <p>Température: ${response.data.main.temp}</p>
-    <p>Description: ${response.data.weather[0].description}</p>
-    `
-
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.end(html);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept",
+  );
+  next();
 });
 
-const PORT = process.env.PORT || 3000
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(cors());
 
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
+app.use(express.static("public"));
+
+const PORT = process.env.PORT || 3000;
+
+app.post("/", async (req, res) => {
+  console.log(req.body);
+
+  await Location.insertOne({
+    title: req.body.location,
+    temperature: req.body.temp,
+    description: req.body.desc,
+    timestamp: Date.now(),
+  });
+
+  res.sendStatus(201);
 });
 
-function getLocationFrom(url) {
-    const parts = url.split("/")
+app.get("/:location", async (req, res) => {
+  const location = req.params.location;
 
-    if (parts[1].split(".").length < 2 && parts[1].length > 0) {
-        return parts[1]
-    }
+  const locations = await Location.find({ title: location }).sort({timestamp: -1}).limit(10);
 
+  res.status(200).json(locations);
+});
 
-    return null;
-}
+mongoose
+  .connect("mongodb://root:password@mongo:27017/")
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}/`);
+    }),
+  )
+  .catch((err) => console.log(err));
