@@ -41,13 +41,13 @@ app.post("/", async (req, res) => {
 app.get("/:location", async (req, res) => {
   const location = req.params.location;
 
-  const locations = await Location.find({ title: location }).sort({timestamp: -1}).limit(10);
+  const locations = await Location.find({ title: location }).sort({ timestamp: -1 }).limit(10);
 
   res.status(200).json(locations);
 });
 
 mongoose
-  .connect("mongodb://root:password@mongo:27017/")
+  .connect(process.env['CONNECTION_STRING'])
   .then(() =>
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}/`);
