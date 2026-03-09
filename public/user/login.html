@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherApp</title>
+    <script src="../script.js" defer></script>
+  </head>
+
+  <body>
+    <h1>Connexion</h1>
+    <form action="/login" method="post" onsubmit="login(event)">
+      <label for="email">Adresse email:</label>
+      <input type="text" name="email" required />
+      <label for="password">Mot de passe:</label>
+      <input type="password" name="password" required />
+
+      <input type="submit" value="Envoyer" />
+    </form>
+    <p>Pas encore inscrit?</p>
+    <a href="/user/signup.html">Inscrivez-vous ici</a>
+  </body>
+</html>
