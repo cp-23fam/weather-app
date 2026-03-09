@@ -30,7 +30,7 @@ async function getDbResponse() {
   location =
     location[0].toLocaleUpperCase() + location.substr(1).toLocaleLowerCase();
 
-  const url = `/${location}`;
+  const url = `/location/${location}`;
 
   try {
     const rep = await fetch(url);
@@ -69,35 +69,35 @@ async function sendSearch(loc, temp, desc) {
   }
 }
 
-async function login(event) {
-  console.log("Try to login");
-  event.preventDefault();
+// async function login(event) {
+//   console.log("Try to login");
+//   event.preventDefault();
 
-  try {
-    const email = document.querySelector("input[name=email]").value
-    const password = document.querySelector("input[name=password]").value
+//   try {
+//     const email = document.querySelector("input[name=email]").value
+//     const password = document.querySelector("input[name=password]").value
 
-    const rep = await fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+//     const rep = await fetch("/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//       },
+//       body: JSON.stringify({
+//         email: email,
+//         password: password,
+//       }),
+//     });
 
-    if (rep.ok) {
-      const text = await rep.text()
-      const data = JSON.parse(text)
-      const token = data.token
+//     if (rep.ok) {
+//       const text = await rep.text()
+//       const data = JSON.parse(text)
+//       const token = data.token
 
-      document.cookie = `Authorization=Bearer ${token}; path=/`;
-      window.location.replace("/")
-    }
-  } catch (e) {
-    console.error(e.message);
-  }
-}
+//       document.cookie = `Authorization=Bearer ${token}; path=/`;
+//       window.location.replace("/")
+//     }
+//   } catch (e) {
+//     console.error(e.message);
+//   }
+// }

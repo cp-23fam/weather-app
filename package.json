@@ -2,10 +2,10 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "Weather app",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon -w ."
+    "start": "node src/index.js",
+    "dev": "nodemon -w src/"
   },
   "author": "cp-23fam",
   "license": "ISC",
@@ -17,8 +17,11 @@
     "dotenv": "^17.2.3",
     "ejs": "^4.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.11.3",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.2.1"
+    "mongoose": "^9.2.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
